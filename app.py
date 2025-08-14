@@ -81,11 +81,8 @@ if submit:
                     mime = "text/plain"
                 )
 
-        if chart_name == "chart_brand_subcategory":
-            verifier.check_chart_brand(data, "subcategory")
-
-        if chart_name == "chart_brand_further_subcategory":
-            verifier.check_chart_brand(data, "further_subcategory")
+        if chart_name == "chart_brand":
+            verifier.check_chart_brand(data)
 
         if chart_name == "chart_brand_extend":
             verifier.check_chart_brand_extend(data)

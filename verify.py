@@ -334,17 +334,17 @@ class Verify():
 
         return dup_ids
 
-    def check_chart_brand(self, data, statstype):
+    def check_chart_brand(self, data):
 
 
         # 檢查重要欄位是否存在
-        self.column_assertion(data, "chart_brand_" + statstype)
+        self.column_assertion(data, "chart_brand")
         
         # 重要欄位空值分析
-        self.null_analysis(data, "chart_brand_" + statstype)
+        self.null_analysis(data, "chart_brand")
     
         # 檢查產品分類組合
-        self.classification_check(data, statstype)
+        self.classification_check(data, "mixed")
 
         # 驗證排名
         self.rank_verifier(data, "chart_brand")
@@ -476,48 +476,5 @@ class Verify():
         
 
         
-
-if __name__ == "__main__":
-
-    args = parse_args()
-
-    classification = pd.read_excel(args.classification)[["domain", "category", "subcategory", "further_subcategory"]]
-    classification['classification_further_subcategory'] = classification.apply(lambda row: "_".join([row[col] for col in classification_columns]), axis = 1)
-    classification['classification_subcategory'] = classification.apply(lambda row: "_".join([row[col] for col in classification_columns if col != "further_subcategory"]), axis = 1)
-    data_verifier = Verify(classification)
-
-    print(RULES)
-
-    if args.products:
-        data_verifier.check_products(args.products)
-
-    if args.products_extend:
-        data_verifier.check_products_extend(args.products_extend)
-
-    if args.chart_brand_subcategory:
-        data_verifier.check_chart_brand(args.chart_brand_subcategory, "subcategory")
-
-    if args.chart_brand_further_subcategory:
-        data_verifier.check_chart_brand(args.chart_brand_further_subcategory, "subcategory")
-
-    if args.chart_brand_extend:
-        data_verifier.check_chart_brand_extend(args.chart_brand_extend)
-
-    if args.chart_brand_extend_cross:
-        data_verifier.check_chart_brand_extend_cross(args.chart_brand_extend_cross)
-
-    if args.chart_brand_extend_image:
-        data_verifier.check_chart_brand_extend_image(args.chart_brand_extend_image)
-
-    if args.chart_brand_comment_counts:
-        data_verifier.check_chart_brand_comment_counts(args.chart_brand_comment_counts)
-
-    if args.chart_others:
-        data_verifier.check_chart_others(args.chart_others)
-
-    if args.chart_trends:
-        data_verifier.check_chart_trends(args.chart_trends)
-
-
 
 
