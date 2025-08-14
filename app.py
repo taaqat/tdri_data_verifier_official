@@ -68,8 +68,7 @@ if submit:
                     label = "下載 products 重複列 id",
                     data = "\n".join(dup_ids),
                     file_name = "products_duplicated_id.txt",
-                    mime = "text/plain",
-                    on_click = "ignore"
+                    mime = "text/plain"
                 )
 
         if chart_name == "products_extend":
@@ -79,8 +78,7 @@ if submit:
                     label = "下載 products extend 重複列 id",
                     data = "\n".join(dup_ids),
                     file_name = "products_extend_duplicated_id.txt",
-                    mime = "text/plain",
-                    on_click = "ignore"
+                    mime = "text/plain"
                 )
 
         if chart_name == "chart_brand_subcategory":

@@ -268,17 +268,25 @@ class Verify():
             if "ratio" in df.columns:
                 df["ratio"] = df["ratio"].astype(str)
                 df["ratio_decimal_test"] = df["ratio"].apply(lambda x: len(x.split(".")[1]) > 3 if len(x.split(".")) > 1 else False)
-                sum_violating = sum(df['ratio_decimal_test'])
-                if sum_violating > 0:
-                    stream_write(f"🔔 extend_stats -> ratio: {sum_violating} 列超過 3 位小數" )
+                df["ratio_ends_with_zero"] = df["ratio"].apply(lambda x: int(x.split(".")[1]) == 0 if len(x.split(".")) > 1 else False)
+                sum_violating_1 = sum(df['ratio_decimal_test'])
+                sum_violating_2 = sum(df['ratio_ends_with_zero'])
+                if sum_violating_1 > 0:
+                    stream_write(f"🔔 extend_stats -> ratio: {sum_violating_1} 列超過 3 位小數" )
+                if sum_violating_2 > 0:
+                    stream_write(f"🔔 extend_stats -> ratio: {sum_violating_2} 列小數以 0 結尾" )
 
             # * Check avg_price
             if "avg_price" in df.columns:
                 df["avg_price"] = df["avg_price"].astype(str)
-                df["avg_price_decimal_test"] = df["avg_price"].apply(lambda x: len(x.split(".")[1]) > 2 if len(x.split(".")) > 1 else False)
-                sum_violating = sum(df['avg_price_decimal_test'])
-                if sum_violating > 0 :
-                    stream_write(f"🔔 extend_stats -> avg_price: {sum_violating} 列超過 3 位小數")
+                df["avg_price_decimal_test"] = df["avg_price"].apply(lambda x: len(x.split(".")[1]) > 3 if len(x.split(".")) > 1 else False)
+                df["avg_price_ends_with_zero"] = df["avg_price"].apply(lambda x: int(x.split(".")[1]) == 0 if len(x.split(".")) > 1 else False)
+                sum_violating_1 = sum(df['avg_price_decimal_test'])
+                sum_violating_2 = sum(df['avg_price_ends_with_zero'])
+                if sum_violating_1 > 0:
+                    stream_write(f"🔔 extend_stats -> avg_price: {sum_violating_1} 列超過 3 位小數" )
+                if sum_violating_2 > 0:
+                    stream_write(f"🔔 extend_stats -> avg_price: {sum_violating_2} 列小數以 0 結尾" )
 
             del df
             stream_write("✅ 檢查完成")
