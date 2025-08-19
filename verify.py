@@ -115,9 +115,11 @@ class Verify():
                 class_cols = classification_columns
             elif statstype == "subcategory":
                 class_cols = ["category", "subcategory"]
+            count = 0
             for _, row in data.dropna(subset = class_cols).iterrows():
                 class_ = "_".join([row[col] for col in class_cols]) 
                 if class_ not in self.classification['classification_' + statstype].tolist():
+                    count += 1
                     try:
                         incorrect_classified_ids.append(row['id'])
                     except:
@@ -127,7 +129,7 @@ class Verify():
                         except:
                             pass
 
-        stream_write(f"🔔 共有 {len(incorrect_classified_ids)} 比資料的分類組合不存在於分類資料表中，佔總資料的 {len(incorrect_classified_ids) / len(data) * 100 :.2f}%")
+        stream_write(f"🔔 共有 {count} 比資料的分類組合不存在於分類資料表中，佔總資料的 {count / len(data) * 100 :.2f}%")
         return incorrect_classified_ids
     
     def rank_verifier(self, data, chart_name):
@@ -448,13 +450,16 @@ class Verify():
     
         # 檢查產品分類組合
         self.classification_check(data, "mixed")
-
-        # 驗證排名
-        self.rank_verifier(data, "chart_brand_comment_score")
         
         # 檢查擴充屬性
-        self.check_extend_class(data, "chart_brand_comment_score")
-
+        stream_write("\n🔆 檢查是否缺少擴充屬性...")
+        extend_classes_status = pd.DataFrame(columns = Extend_class_schema["chart_brand_comment_score"])
+        for col in extend_classes_status.columns:
+            if col not in data['extend_class'].unique():
+                extend_classes_status.loc["是否出現在資料表中", col] = "❌"
+            else:
+                extend_classes_status.loc["是否出現在資料表中", col] = "✅"
+        st.dataframe(extend_classes_status)
     
     def check_chart_others(self, data):
 
