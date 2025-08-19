@@ -15,6 +15,21 @@
         ⚠️ 選擇的報表種類需要與您上傳的報表格式匹配！
     - 點擊「開始驗證」按鈕
 
+### Build Setup (Local)
+Edit directly in III DTRI computer, or clone the repo by the following command:
+```
+git clone https://github.com/taaqat/tdri_data_verifier_official.git
+```
+
+Install required packages by pip. `Streamlit` is necessary for this project.
+```
+pip install -r requirements.txt
+```
+
+Finally, execute the application by the command:
+```
+streamlit run app.py
+```
 
 ### 資料驗證規則
 
