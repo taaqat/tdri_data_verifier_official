@@ -60,8 +60,11 @@ charts = {
     "chart_brand_extend_cross": ["step1", "step2", "step4", "step5", "step6", "step7"],
     "chart_brand_extend_image": ["step1", "step2", "step4", "step5", "step6", "step7"],
     "chart_brand_comment_counts":["step1", "step2", "step4", "step5", "step6", "step7"],
+    "chart_brand_comment_score":["step1", "step2", "step4", "step5", "step6"],
     "chart_others": ["step1", "step2", "step4", "step5", "step6", "step7"],
-    "chart_trends": ["step1", "step2", "step4", "step6"]
+    "chart_trends": ["step1", "step2", "step5", "step6"],
+    "reference": ["step1", "step2", "step5"],
+    "keyword": ["step1", "step2", "step5"]
 }
 
 
@@ -180,6 +183,19 @@ Config = {
         "stats_type",
         "source"
     ],
+    "chart_brand_comment_score": [
+        "id",
+        "category",
+        "subcategory",
+        "further_subcategory",
+        "brand",
+        "brand_rank",
+        "extend_class",
+        "extend_detail",
+        "extend_stats",
+        "stats_type",
+        "source"
+    ],
     "chart_others": [
         "id",
         "category",
@@ -208,6 +224,35 @@ Config = {
         "features",
         "stats_type",
         "source"
+    ],
+    "reference": [
+        "references_id",
+        "domain",
+        "category",
+        "subcategory",
+        "further_subcategory",
+        "label",
+        "type",
+        "title",
+        "url",
+        "process",
+        "is_domestic",
+        "content",
+        "source"
+    ],
+    "keyword": [
+        "domain",
+        "category",
+        "subcategory",
+        "further_subcategory",
+        "keyword",
+        "search_volume",
+        "search_volume_max",
+        "search_volume_min",
+        "trends",
+        "end_at",
+        "is_brand",
+        "predict_volume"
     ]
 }
 
@@ -286,9 +331,16 @@ Extend_class_schema = {
         "正面留言因素",
         "負面留言因素"
     ],
+    "chart_brand_comment_score": [
+        "正面留言因素",
+        "負面留言因素"
+    ],
     "chart_others": [
         "配件",
         "產品族群分析"
+    ],
+    "chart_trends": [
+
     ]
 }
 
@@ -313,6 +365,9 @@ Rank_col_schema = {
         "brand": ("brand_rank", 5)
     },
     "chart_brand_comment_counts": {
+        "brand": ("brand_rank", 5)
+    },
+    "chart_brand_comment_score": {
         "brand": ("brand_rank", 5)
     },
     "chart_others": {

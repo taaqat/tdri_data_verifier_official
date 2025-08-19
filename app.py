@@ -102,4 +102,8 @@ if submit:
         if chart_name == "chart_trends":
             verifier.check_chart_trends(data)
 
-        
+        if chart_name == "reference":
+            verifier.check_reference(data)
+
+        if chart_name == "keyword":
+            verifier.check_keyword(data)

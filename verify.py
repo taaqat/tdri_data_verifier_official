@@ -118,7 +118,14 @@ class Verify():
             for _, row in data.dropna(subset = class_cols).iterrows():
                 class_ = "_".join([row[col] for col in class_cols]) 
                 if class_ not in self.classification['classification_' + statstype].tolist():
-                    incorrect_classified_ids.append(row['id'])
+                    try:
+                        incorrect_classified_ids.append(row['id'])
+                    except:
+                        try:
+                            # * 新增 reference 報表的例外處理
+                            incorrect_classified_ids.append(row['reference_id'])
+                        except:
+                            pass
 
         stream_write(f"🔔 共有 {len(incorrect_classified_ids)} 比資料的分類組合不存在於分類資料表中，佔總資料的 {len(incorrect_classified_ids) / len(data) * 100 :.2f}%")
         return incorrect_classified_ids
@@ -430,6 +437,24 @@ class Verify():
 
         # 檢查小數點
         self.verify_decimal(data)
+
+    def check_chart_brand_comment_score(self, data):
+
+        # 檢查重要欄位是否存在
+        self.column_assertion(data, "chart_brand_comment_score")
+        
+        # 重要欄位空值分析
+        self.null_analysis(data, "chart_brand_comment_score")
+    
+        # 檢查產品分類組合
+        self.classification_check(data, "mixed")
+
+        # 驗證排名
+        self.rank_verifier(data, "chart_brand_comment_score")
+        
+        # 檢查擴充屬性
+        self.check_extend_class(data, "chart_brand_comment_score")
+
     
     def check_chart_others(self, data):
 
@@ -458,13 +483,54 @@ class Verify():
         
         # 重要欄位空值分析
         self.null_analysis(data, "chart_trends")
-    
+
+
         # 檢查產品分類組合
         self.classification_check(data, "mixed")
 
         # 驗證排名
         self.rank_verifier(data, "chart_trends")
 
+    def check_reference(self, data):
+        # 檢查重要欄位是否存在
+        self.column_assertion(data, "reference")
+        
+        # 重要欄位空值分析
+        self.null_analysis(data, "reference")
+
+        # 檢查產品分類組合
+        self.classification_check(data, "further_subcategory")
+
+    def check_keyword(self, data):
+        # 檢查重要欄位是否存在
+        self.column_assertion(data, "keyword")
+        
+        # 重要欄位空值分析
+        self.null_analysis(data, "keyword")
+
+        for col in ["domain", "subcategory", "further_subcategory", "category"]:
+            data[col] = data[col].astype(str)
+
+        is_brand_t = data[data['is_brand'] == True]
+        is_brand_f = data[data['is_brand'] == False]
+        
+        # 檢查是否有列的 search_volume 為 0
+        stream_write("\n🔆 檢查 keyword 表中的 search_volume 欄位...")
+        data["search_volume_zero"] = data['search_volume'].apply(
+            lambda x: pd.isna(x) or str(x).strip() in ['0', '0.0', ''] or (
+                isinstance(x, (int, float)) and x == 0
+            )
+        )
+        stream_write(f"🔔 共有 {data['search_volume_zero'].sum()} 列之 search_volume 為 0 或空值！")
+
+
+        # 檢查產品分類組合
+        self.classification_check(is_brand_t, "further_subcategory")
+        st.caption("針對 is_brand = 1 之 keyword 資料")
+
+        
+        self.classification_check(is_brand_f, "further_subcategory")
+        st.caption("針對 is_brand = 0 之 keyword 資料")
         
 
         
