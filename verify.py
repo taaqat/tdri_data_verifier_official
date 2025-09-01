@@ -1,3 +1,5 @@
+class Verify():
+
     def check_chart_brands_extend(self, data):
         # 檢查重要欄位是否存在
         self.column_assertion(data, "chart_brands_extend")
