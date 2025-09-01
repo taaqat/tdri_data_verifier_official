@@ -1,3 +1,9 @@
+import pandas as pd
+import numpy as np
+import json
+import argparse
+from constants import RULES, Config, classification_columns, Rank_col_schema, Extend_class_schema
+
 class Verify():
 
     def check_chart_brands_extend(self, data):
@@ -13,11 +19,6 @@ class Verify():
         self.check_extend_class(data, "chart_brands_extend")
         # 檢查小數點
         self.verify_decimal(data)
-import pandas as pd 
-import numpy as np
-import json
-import argparse
-from constants import RULES, Config, classification_columns, Rank_col_schema, Extend_class_schema
 import streamlit as st
 import time
 
