@@ -278,7 +278,7 @@ Extend_class_schema = {
         "容量",
         "族群"
     ],
-    "chart_brand_extend": [
+    "chart_brands_extend": [
         "使用情境",
         "適用環境",
         "功能",
@@ -292,7 +292,7 @@ Extend_class_schema = {
         "容量",
         "族群"
     ],
-    "chart_brand_extend_cross": [
+    "chart_brands_extend_cross": [
         "使用情境 x 售價",
         "功能 x 售價",
         "效能 x 售價",
@@ -321,16 +321,16 @@ Extend_class_schema = {
         "功能 x 容量",
         "色彩 x 材質"
     ],
-    "chart_brand_extend_image": [
+    "chart_brands_extend_image": [
         "使用情境 x 風格",
         "風格",
         "使用情境"
     ],
-    "chart_brand_comment_counts": [
+    "chart_brands_comment_counts": [
         "正面留言因素",
         "負面留言因素"
     ],
-    "chart_brand_comment_score": [
+    "chart_brands_comment_score": [
         "正面留言因素",
         "負面留言因素"
     ],
