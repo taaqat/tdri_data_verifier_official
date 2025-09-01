@@ -2,11 +2,9 @@ import pandas as pd
 import numpy as np
 import json
 import argparse
-from constants import RULES, Config, classification_columns, Rank_col_schema, Extend_class_schema
-
-## 刪除這個重複的 Verify class，保留下方唯一的 class Verify 定義
 import streamlit as st
 import time
+from constants import RULES, Config, classification_columns, Rank_col_schema, Extend_class_schema
 
 
 def stream_write(text, time_interval = 0.04):
@@ -19,7 +17,17 @@ def stream_write(text, time_interval = 0.04):
     st.write_stream(gen_stream(text))
 
 class Verify():
-
+    def __init__(self, classification_data):
+        self.classification = classification_data
+        self.chart_brand_details = {"subcategory": {},
+                                    "further_subcategory": {}}
+        self.chart_brand_extend_details = {}
+        self.chart_brand_extend_cross_details = {}
+        self.chart_brand_extend_image_details = {}
+        self.chart_brand_comment_counts_details = {}
+        self.chart_others_details = {}
+        self.chart_trends_details = {}
+        
     def check_chart_brands_extend(self, data):
         # 檢查重要欄位是否存在
         self.column_assertion(data, "chart_brands_extend")
@@ -33,17 +41,6 @@ class Verify():
         self.check_extend_class(data, "chart_brands_extend")
         # 檢查小數點
         self.verify_decimal(data)
-        
-    def __init__(self, classification_data):
-        self.classification = classification_data
-        self.chart_brand_details = {"subcategory": {},
-                                    "further_subcategory": {}}
-        self.chart_brand_extend_details = {}
-        self.chart_brand_extend_cross_details = {}
-        self.chart_brand_extend_image_details = {}
-        self.chart_brand_comment_counts_details = {}
-        self.chart_others_details = {}
-        self.chart_trends_details = {}
 
     def column_assertion(self, data, chart_name):
         stream_write("🔆 檢查是否缺少特定欄位...")
