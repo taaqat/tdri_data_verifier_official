@@ -349,24 +349,24 @@ classification_columns = ["category", "subcategory", "further_subcategory"]
 各表格排名欄位與規範
 """
 Rank_col_schema = {
-    "chart_brand": {
+    "chart_brands": {
         "brand": ("brand_rank", 10)
     },
-    "chart_brand_extend": {
+    "chart_brands_extend": {
         "brand": ("brand_rank", 5),
         "factor_stats": ("extend_detail_rank", 10),
         "factor_alphabet": ("extend_detail_rank_ordinal", 10)
     },
-    "chart_brand_extend_cross": {
+    "chart_brands_extend_cross": {
         "brand": ("brand_rank", 5)
     },
-    "chart_brand_extend_image": {
+    "chart_brands_extend_image": {
         "brand": ("brand_rank", 5)
     },
-    "chart_brand_comment_counts": {
+    "chart_brands_comment_counts": {
         "brand": ("brand_rank", 5)
     },
-    "chart_brand_comment_score": {
+    "chart_brands_comment_score": {
         "brand": ("brand_rank", 5)
     },
     "chart_others": {
