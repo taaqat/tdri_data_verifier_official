@@ -34,7 +34,7 @@
 ## products_extend
 
 - **重複值檢測 (step3)**:
-  - 使用 'source_product_id', 'extend_class', 'extend_detail' 作為判定是否重複的欄位
+  - 使用 'source_product_id', 'extend_class', 'extend_subclass', 'extend_detail' 作為判定是否重複的欄位
   - 若沒有重複值，輸出：✅ 沒有重複的產品擴增屬性資料
   - 若有，輸出：🔔 Products Extend 有重複值。(提供下載重複列 id 的按鈕)
 
