@@ -22,7 +22,15 @@ Edit directly in III DTRI computer, or clone the repo by the following command:
 git clone https://github.com/taaqat/tdri_data_verifier_official.git
 ```
 
+(Optional) Create a virtual machine 
+
+```bash
+python -m venv venv
+source venv/bin/activate  # on macOS/Linux
+```
+
 Install required packages by pip. `Streamlit` is necessary for this project.
+
 ```bash
 pip install -r requirements.txt
 ```
