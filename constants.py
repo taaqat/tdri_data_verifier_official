@@ -55,12 +55,12 @@ RULES = {
 charts = {
     "products": ["step1", "step2", "step3", "step5"],
     "products_extend": ["step1", "step2", "step3", "step4", "step5"],
-    "chart_brand": ["step1", "step2", "step5", "step6"],
-    "chart_brand_extend": ["step1", "step2", "step4", "step5", "step6", "step7"],
-    "chart_brand_extend_cross": ["step1", "step2", "step4", "step5", "step6", "step7"],
-    "chart_brand_extend_image": ["step1", "step2", "step4", "step5", "step6", "step7"],
-    "chart_brand_comment_counts":["step1", "step2", "step4", "step5", "step6", "step7"],
-    "chart_brand_comment_score":["step1", "step2", "step4", "step5"],
+    "chart_brands": ["step1", "step2", "step5", "step6"],
+    "chart_brands_extend": ["step1", "step2", "step4", "step5", "step6", "step7"],
+    "chart_brands_extend_cross": ["step1", "step2", "step4", "step5", "step6", "step7"],
+    "chart_brands_extend_image": ["step1", "step2", "step4", "step5", "step6", "step7"],
+    "chart_brands_comment_counts":["step1", "step2", "step4", "step5", "step6", "step7"],
+    "chart_brands_comment_score":["step1", "step2", "step4", "step5"],
     "chart_others": ["step1", "step2", "step4", "step5", "step6", "step7"],
     "chart_trends": ["step1", "step2", "step5", "step6"],
     "reference": ["step1", "step2", "step5"],
@@ -102,7 +102,7 @@ Config = {
         'category', 
         'subcategory', 
         'further_subcategory'],
-    "chart_brand": [
+    "chart_brands": [
         "id",
         "category",
         "subcategory",
@@ -125,7 +125,7 @@ Config = {
         "stats_type",
         "source"
     ],
-    "chart_brand_extend": [
+    "chart_brands_extend": [
         "id",
         "category",
         "subcategory",
@@ -141,7 +141,7 @@ Config = {
         "extend_detail_rank",
         "extend_detail_rank_ordinal"
     ],
-    "chart_brand_extend_cross": [
+    "chart_brands_extend_cross": [
         "id",
         "category",
         "subcategory",
@@ -155,7 +155,7 @@ Config = {
         "stats_type",
         "source"
     ],
-    "chart_brand_extend_image": [
+    "chart_brands_extend_image": [
         "id",
         "category",
         "subcategory",
@@ -168,7 +168,7 @@ Config = {
         "stats_type",
         "source"
     ],
-    "chart_brand_comment_counts": [
+    "chart_brands_comment_counts": [
         "id",
         "category",
         "subcategory",
@@ -183,7 +183,7 @@ Config = {
         "stats_type",
         "source"
     ],
-    "chart_brand_comment_score": [
+    "chart_brands_comment_score": [
         "id",
         "category",
         "subcategory",

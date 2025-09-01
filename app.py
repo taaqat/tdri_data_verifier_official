@@ -39,17 +39,15 @@ with CR:
     if data is not None:
         filename = data.name.lower()
         best_match = []
-        # 1. 先比對是否以 key 開頭
-        for k in chart_keys:
-            if filename.startswith(k):
-                best_match = [k]
-                break
-        # 2. 再比對是否包含 key
+        # 1. 先比對是否以 key 開頭，若多個則取最長
+        start_matches = [k for k in chart_keys if filename.startswith(k)]
+        if start_matches:
+            best_match = [max(start_matches, key=len)]
+        # 2. 再比對是否包含 key，若多個則取最長
         if not best_match:
-            for k in chart_keys:
-                if k in filename:
-                    best_match = [k]
-                    break
+            contain_matches = [k for k in chart_keys if k in filename]
+            if contain_matches:
+                best_match = [max(contain_matches, key=len)]
         # 3. 最後才用 difflib 模糊比對
         if not best_match:
             best_match = difflib.get_close_matches(filename, chart_keys, n=1)
@@ -110,23 +108,23 @@ if submit:
                     mime = "text/plain"
                 )
 
-        if chart_name == "chart_brand":
-            verifier.check_chart_brand(data)
+        if chart_name == "chart_brands":
+            verifier.check_chart_brands(data)
 
-        if chart_name == "chart_brand_extend":
-            verifier.check_chart_brand_extend(data)
+        if chart_name == "chart_brands_extend":
+            verifier.check_chart_brands_extend(data)
 
-        if chart_name == "chart_brand_extend_cross":
-            verifier.check_chart_brand_extend_cross(data)
+        if chart_name == "chart_brands_extend_cross":
+            verifier.check_chart_brands_extend_cross(data)
 
-        if chart_name == "chart_brand_extend_image":
-            verifier.check_chart_brand_extend_image(data)
+        if chart_name == "chart_brands_extend_image":
+            verifier.check_chart_brands_extend_image(data)
 
-        if chart_name == "chart_brand_comment_counts":
-            verifier.check_chart_brand_comment_counts(data)
+        if chart_name == "chart_brands_comment_counts":
+            verifier.check_chart_brands_comment_counts(data)
 
-        if chart_name == "chart_brand_comment_score":
-            verifier.check_chart_brand_comment_score(data)
+        if chart_name == "chart_brands_comment_score":
+            verifier.check_chart_brands_comment_score(data)
 
         if chart_name == "chart_others":
             verifier.check_chart_others(data)

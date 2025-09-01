@@ -360,46 +360,29 @@ class Verify():
         # 驗證排名
         self.rank_verifier(data, "chart_brand")
 
-    def check_chart_brand_extend(self, data):
-
-
+    def check_chart_brands_extend_image(self, data):
         # 檢查重要欄位是否存在
-        self.column_assertion(data, "chart_brand_extend")
-        
+        self.column_assertion(data, "chart_brands_extend_image")
         # 重要欄位空值分析
-        self.null_analysis(data, "chart_brand_extend")
-    
+        self.null_analysis(data, "chart_brands_extend_image")
         # 檢查產品分類組合
-        self.classification_check(data, "mixed")
-
+        self.chart_brands_extend_image_details["incorrect_classified_ids"] = self.classification_check(data, "mixed")
         # 驗證排名
-        self.rank_verifier(data, "chart_brand_extend")
-        
+        self.rank_verifier(data, "chart_brands_extend_image")
         # 檢查擴充屬性
-        self.check_extend_class(data, "chart_brand_extend")
-
+        self.check_extend_class(data, "chart_brands_extend_image")
         # 檢查小數點
         self.verify_decimal(data)
-
-    def check_chart_brand_extend_cross(self, data):
-
-
-        # 檢查重要欄位是否存在
-        self.column_assertion(data, "chart_brand_extend_cross")
-        
         # 重要欄位空值分析
-        self.null_analysis(data, "chart_brand_extend_cross")
-    
+        self.null_analysis(data, "chart_brands_extend")
         # 檢查產品分類組合
         self.classification_check(data, "mixed")
-
         # 驗證排名
-        self.rank_verifier(data, "chart_brand_extend_cross")
-        
+        self.rank_verifier(data, "chart_brands_extend")
         # 檢查擴充屬性
-        self.check_extend_class(data, "chart_brand_extend_cross")
-
+        self.check_extend_class(data, "chart_brands_extend")
         # 檢查小數點
+        self.verify_decimal(data)
         self.verify_decimal(data)
 
     def check_chart_brand_extend_image(self, data):
