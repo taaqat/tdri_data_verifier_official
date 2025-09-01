@@ -1,3 +1,4 @@
+
 import streamlit as st 
 st.set_page_config(layout="wide")
 
@@ -24,13 +25,41 @@ div.stButton > button:hover {
 </style>
 """, unsafe_allow_html=True)
 
+
+# 新增：根據檔名自動選擇報表種類
+import difflib
+
 CL, CR = st.columns(2)
+
+# chart_name 預設值自動判斷
+chart_keys = list(charts.keys())
+default_chart_name = chart_keys[0]
+with CR:
+    data = st.file_uploader("上傳欲驗證的報表", type = ["csv", "xlsx"], key="data_file")
+    if data is not None:
+        filename = data.name.lower()
+        best_match = []
+        # 1. 先比對是否以 key 開頭
+        for k in chart_keys:
+            if filename.startswith(k):
+                best_match = [k]
+                break
+        # 2. 再比對是否包含 key
+        if not best_match:
+            for k in chart_keys:
+                if k in filename:
+                    best_match = [k]
+                    break
+        # 3. 最後才用 difflib 模糊比對
+        if not best_match:
+            best_match = difflib.get_close_matches(filename, chart_keys, n=1)
+        if best_match:
+            default_chart_name = best_match[0]
+    submit = st.button("開始驗證")
 with CL:
     classification = st.file_uploader("上傳你的分類表", type = ["csv", "xlsx"])
-    chart_name = st.selectbox("選擇欲驗證的報表種類", charts.keys())
-with CR:
-    data =  st.file_uploader("上傳欲驗證的報表", type = ["csv", "xlsx"])
-    submit = st.button("開始驗證")
+    # selectbox 用 default_chart_name 當預設值
+    chart_name = st.selectbox("選擇欲驗證的報表種類", chart_keys, index=chart_keys.index(default_chart_name), key="chart_name")
 
 help = "".join([RULES[x] for x in charts[chart_name]])
 instruction = st.empty()
