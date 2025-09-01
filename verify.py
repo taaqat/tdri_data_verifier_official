@@ -20,6 +20,20 @@ def stream_write(text, time_interval = 0.04):
 
 class Verify():
 
+    def check_chart_brands_extend(self, data):
+        # 檢查重要欄位是否存在
+        self.column_assertion(data, "chart_brands_extend")
+        # 重要欄位空值分析
+        self.null_analysis(data, "chart_brands_extend")
+        # 檢查產品分類組合
+        self.classification_check(data, "mixed")
+        # 驗證排名
+        self.rank_verifier(data, "chart_brands_extend")
+        # 檢查擴充屬性
+        self.check_extend_class(data, "chart_brands_extend")
+        # 檢查小數點
+        self.verify_decimal(data)
+        
     def __init__(self, classification_data):
         self.classification = classification_data
         self.chart_brand_details = {"subcategory": {},
@@ -347,9 +361,20 @@ class Verify():
 
         return dup_ids
 
+    def check_chart_brands(self, data):
+        # 檢查重要欄位是否存在
+        self.column_assertion(data, "chart_brands")
+        
+        # 重要欄位空值分析
+        self.null_analysis(data, "chart_brands")
+    
+        # 檢查產品分類組合
+        self.classification_check(data, "mixed")
+
+        # 驗證排名
+        self.rank_verifier(data, "chart_brands")
+        
     def check_chart_brand(self, data):
-
-
         # 檢查重要欄位是否存在
         self.column_assertion(data, "chart_brand")
         
@@ -382,6 +407,25 @@ class Verify():
         self.verify_decimal(data)
         self.verify_decimal(data)
 
+    def check_chart_brands_extend_image(self, data):
+        # 檢查重要欄位是否存在
+        self.column_assertion(data, "chart_brands_extend_image")
+        
+        # 重要欄位空值分析
+        self.null_analysis(data, "chart_brands_extend_image")
+    
+        # 檢查產品分類組合
+        self.chart_brand_extend_image_details["incorrect_classified_ids"] = self.classification_check(data, "mixed")
+
+        # 驗證排名
+        self.rank_verifier(data, "chart_brands_extend_image")
+        
+        # 檢查擴充屬性
+        self.check_extend_class(data, "chart_brands_extend_image")
+        
+        # 檢查小數點
+        self.verify_decimal(data)
+        
     def check_chart_brand_extend_image(self, data):
 
         # 檢查重要欄位是否存在
@@ -402,6 +446,19 @@ class Verify():
         # 檢查小數點
         self.verify_decimal(data)
 
+    def check_chart_brands_comment_counts(self, data):
+        # 檢查重要欄位是否存在
+        self.column_assertion(data, "chart_brands_comment_counts")
+        
+        # 重要欄位空值分析
+        self.null_analysis(data, "chart_brands_comment_counts")
+    
+        # 檢查產品分類組合
+        self.classification_check(data, "mixed")
+
+        # 驗證排名
+        self.rank_verifier(data, "chart_brands_comment_counts")
+        
     def check_chart_brand_comment_counts(self, data):
 
         # 檢查重要欄位是否存在
@@ -422,6 +479,22 @@ class Verify():
         # 檢查小數點
         self.verify_decimal(data)
 
+    def check_chart_brands_comment_score(self, data):
+        # 檢查重要欄位是否存在
+        self.column_assertion(data, "chart_brands_comment_score")
+        
+        # 重要欄位空值分析
+        self.null_analysis(data, "chart_brands_comment_score")
+    
+        # 檢查產品分類組合
+        self.classification_check(data, "mixed")
+        
+        # 驗證排名
+        self.rank_verifier(data, "chart_brands_comment_score")
+        
+        # 檢查擴充屬性
+        stream_write("\n🔆 檢查是否缺少擴充屬性...")
+        
     def check_chart_brand_comment_score(self, data):
 
         # 檢查重要欄位是否存在
