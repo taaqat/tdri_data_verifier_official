@@ -107,6 +107,8 @@ class Verify():
                 if class_ not in self.classification['classification_subcategory'].tolist():
                     incorrect_classified_ids.append(row['id'])
 
+            count = len(incorrect_classified_ids)
+
         else:
             """
             當表中只有子類或品類其一層級的資料
