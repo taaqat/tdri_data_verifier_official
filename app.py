@@ -93,7 +93,7 @@ if submit:
             if dup_ids:
                 st.download_button(
                     label = "下載 products 重複列 id",
-                    data = "\n".join(dup_ids),
+                    data = "\n".join(map(str, dup_ids)),
                     file_name = "products_duplicated_id.txt",
                     mime = "text/plain"
                 )
@@ -103,7 +103,7 @@ if submit:
             if dup_ids:
                 st.download_button(
                     label = "下載 products extend 重複列 id",
-                    data = "\n".join(dup_ids),
+                    data = "\n".join(map(str, dup_ids)),
                     file_name = "products_extend_duplicated_id.txt",
                     mime = "text/plain"
                 )
