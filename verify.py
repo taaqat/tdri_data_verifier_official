@@ -4,21 +4,7 @@ import json
 import argparse
 from constants import RULES, Config, classification_columns, Rank_col_schema, Extend_class_schema
 
-class Verify():
-
-    def check_chart_brands_extend(self, data):
-        # 檢查重要欄位是否存在
-        self.column_assertion(data, "chart_brands_extend")
-        # 重要欄位空值分析
-        self.null_analysis(data, "chart_brands_extend")
-        # 檢查產品分類組合
-        self.classification_check(data, "mixed")
-        # 驗證排名
-        self.rank_verifier(data, "chart_brands_extend")
-        # 檢查擴充屬性
-        self.check_extend_class(data, "chart_brands_extend")
-        # 檢查小數點
-        self.verify_decimal(data)
+## 刪除這個重複的 Verify class，保留下方唯一的 class Verify 定義
 import streamlit as st
 import time
 
