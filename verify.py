@@ -397,7 +397,6 @@ class Verify():
         self.check_extend_class(data, "chart_brands_extend_cross")
         # 檢查小數點
         self.verify_decimal(data)
-        self.rank_verifier(data, "chart_brands_extend")
         # 檢查擴充屬性
         self.check_extend_class(data, "chart_brands_extend")
         # 檢查小數點
