@@ -9,7 +9,7 @@
     📍[Streamlit 連結](https://tdridataverifierofficial-m54djo3ziybnddahekbzhm.streamlit.app/)
 
 - 進入之後可以看到以下畫面：
-![IMAGE](pics/instruction_image1.png)
+  ![IMAGE](pics/instruction_image1.png)
     - 點擊左上方資料上傳 widget，上傳標準化過後的產品分類表，以作為判斷各報表中的產品分類是否正確的標準。
     - 點擊右上方資料上傳 widget，上傳欲驗證格式的報表。
     - 選擇對應的報表種類。
@@ -18,19 +18,20 @@
 
 ### Build Setup (Local)
 Edit directly in III DTRI computer, or clone the repo by the following command:
-```
+```bash
 git clone https://github.com/taaqat/tdri_data_verifier_official.git
 ```
 
 Install required packages by pip. `Streamlit` is necessary for this project.
-```
+```bash
 pip install -r requirements.txt
 ```
 
 Finally, execute the application by the command:
-```
+```bash
 streamlit run app.py
 ```
+
 
 ### 資料驗證規則
 
@@ -64,3 +65,35 @@ streamlit run app.py
 
 - **ratio**：是否最多至小數三位
 - **avg_price**：是否最多至小數兩位
+
+
+### 執行測試
+本專案使用 pytest 進行測試，測試代碼組織如下：
+- `tests/unit/`: 單元測試，測試各個功能模組的獨立功能
+- `tests/integration/`: 整合測試，測試模組之間的互動
+- `tests/functional/`: 功能測試，測試完整的資料驗證流程
+
+執行所有測試：
+```bash
+python run_tests.py
+```
+
+或直接使用 pytest：
+```bash
+pytest -v
+```
+
+執行特定類型的測試：
+```bash
+pytest tests/unit/ -v  # 只執行單元測試
+pytest tests/integration/ -v  # 只執行整合測試
+pytest tests/functional/ -v  # 只執行功能測試
+```
+
+執行完整測試並輸出到檔案
+
+這個腳本會執行完整測試並將結果保存到時間戳命名的檔案中：
+
+```bash
+./venv/bin/python run_complete_test.py
+```

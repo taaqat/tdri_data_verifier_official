@@ -345,6 +345,9 @@ Extend_class_schema = {
 
 classification_columns = ["category", "subcategory", "further_subcategory"]
 
+# 產品分類的覆蓋率閾值 (70%)
+CATEGORY_COVERAGE_THRESHOLD = 0.7
+
 """
 各表格排名欄位與規範
 """

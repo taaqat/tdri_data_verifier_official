@@ -1,2 +1,5 @@
 openpyxl
 streamlit
+pandas
+pytest
+numpy

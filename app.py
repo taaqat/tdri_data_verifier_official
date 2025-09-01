@@ -88,6 +88,8 @@ if submit:
     verifier = Verify(classification)
 
     with st.container(border = True):
+        # 先檢查分類覆蓋率
+        verifier.check_category_coverage(data)
         if chart_name == "products":
             dup_ids = verifier.check_products(data)
             if dup_ids:
