@@ -176,7 +176,7 @@ class Verify():
                         except:
                             pass
 
-        stream_write(f"🔔 共有 {count} 比資料的分類組合不存在於分類資料表中，佔總資料的 {count / len(data) * 100 :.2f}%")
+        stream_write(f"🔔 共有 {count} 筆資料的分類組合不存在於分類資料表中，佔總資料的 {count / len(data) * 100 :.2f}%")
         return incorrect_classified_ids
     
     def rank_verifier(self, data, chart_name):
