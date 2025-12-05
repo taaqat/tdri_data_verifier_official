@@ -611,7 +611,10 @@ class Verify():
                 )
             )
             zero_count = int(data['search_volume_zero'].sum())
-            stream_write(f"🔔 共有 {zero_count} 列之 search_volume 為 0 或空值！")
+            if zero_count == 0:
+                stream_write(f"✅ 沒有 search_volume 為 0 或空值的資料")
+            else:
+                stream_write(f"🔔 共有 {zero_count} 列之 search_volume 為 0 或空值！")
         except Exception as e:
             stream_write(f"⚠️ 檢查 search_volume 時發生錯誤: {str(e)}")
 
