@@ -122,6 +122,12 @@ class TestFilenameMatching(unittest.TestCase):
         result, detected = match_chart_type_from_filename("keyword_analysis_1201.csv", self.chart_keys)
         self.assertEqual(result, "keyword")
         self.assertTrue(detected)
+
+    def test_keyword_matching2(self):
+        """測試 keyword 匹配"""
+        result, detected = match_chart_type_from_filename("keywords_1201.csv", self.chart_keys)
+        self.assertEqual(result, "keyword")
+        self.assertTrue(detected)
     
     def test_unmatched_filename(self):
         """測試無法匹配的檔名（應該返回預設值且 auto_detected=False）"""
@@ -157,6 +163,52 @@ class TestFilenameMatching(unittest.TestCase):
         self.assertEqual(result1, result2)
         self.assertEqual(result2, result3)
         self.assertEqual(result1, "products")
+    
+    def test_plural_form_matching(self):
+        """測試單複數形式匹配（新增功能）"""
+        # 測試 keywords (複數) 匹配到 keyword (單數)
+        result, detected = match_chart_type_from_filename("keywords_0829.xlsx", self.chart_keys)
+        self.assertEqual(result, "keyword", "keywords (複數) 應該匹配 keyword (單數)")
+        self.assertTrue(detected)
+        
+        result, detected = match_chart_type_from_filename("keywords.csv", self.chart_keys)
+        self.assertEqual(result, "keyword")
+        self.assertTrue(detected)
+        
+        # 測試 references (複數) 匹配到 reference (單數)
+        result, detected = match_chart_type_from_filename("references_1201.csv", self.chart_keys)
+        self.assertEqual(result, "reference", "references (複數) 應該匹配 reference (單數)")
+        self.assertTrue(detected)
+        
+        result, detected = match_chart_type_from_filename("references.xlsx", self.chart_keys)
+        self.assertEqual(result, "reference")
+        self.assertTrue(detected)
+        
+        # 測試單數形式仍然正常工作
+        result, detected = match_chart_type_from_filename("keyword_0829.xlsx", self.chart_keys)
+        self.assertEqual(result, "keyword")
+        self.assertTrue(detected)
+        
+        result, detected = match_chart_type_from_filename("reference.csv", self.chart_keys)
+        self.assertEqual(result, "reference")
+        self.assertTrue(detected)
+    
+    def test_plural_with_complex_filename(self):
+        """測試複數形式與複雜檔名組合"""
+        # keywords + 日期 + 來源
+        result, detected = match_chart_type_from_filename("keywords_amazon_0829.xlsx", self.chart_keys)
+        self.assertEqual(result, "keyword")
+        self.assertTrue(detected)
+        
+        # references + 日期 + 來源
+        result, detected = match_chart_type_from_filename("references_momo_1201.csv", self.chart_keys)
+        self.assertEqual(result, "reference")
+        self.assertTrue(detected)
+        
+        # 混合大小寫的複數形式
+        result, detected = match_chart_type_from_filename("Keywords_Amazon_0829.XLSX", self.chart_keys)
+        self.assertEqual(result, "keyword")
+        self.assertTrue(detected)
 
 
 if __name__ == '__main__':
