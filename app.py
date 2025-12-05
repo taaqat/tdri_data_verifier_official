@@ -61,12 +61,9 @@ with CL:
     # selectbox 用 default_chart_name 當預設值
     chart_name = st.selectbox("選擇欲驗證的報表種類", chart_keys, index=chart_keys.index(default_chart_name), key="chart_name")
     
-    # 顯示自動判斷結果提示
-    if data is not None:
-        if auto_detected:
-            st.success(f"✅ 已自動判斷報表類型為：**{default_chart_name}**")
-        else:
-            st.warning(f"⚠️ 無法自動判斷報表類型，請手動選擇正確的類型")
+    # 只在無法自動判斷時顯示警告
+    if data is not None and not auto_detected:
+        st.warning(f"⚠️ 無法自動判斷報表類型，請手動選擇正確的類型")
 
 help = "".join([RULES[x] for x in charts[chart_name]])
 instruction = st.empty()
