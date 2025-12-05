@@ -244,7 +244,7 @@ Config = {
         "category",
         "subcategory",
         "further_subcategory",
-        "keyword",
+        "items",
         "search_volume",
         "search_volume_max",
         "search_volume_min",
