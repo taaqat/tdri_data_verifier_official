@@ -621,11 +621,11 @@ class Verify():
         # 檢查產品分類組合
         stream_write("\n🔆 檢查 is_brand = True 的資料分類...")
         self.classification_check(is_brand_t, "further_subcategory")
-        safe_st_call(st.caption, "針對 is_brand = 1 之 keyword 資料")
+        # safe_st_call(st.caption, "針對 is_brand = 1 之 keyword 資料")
 
         stream_write("\n🔆 檢查 is_brand = False 的資料分類...")
         self.classification_check(is_brand_f, "further_subcategory")
-        safe_st_call(st.caption, "針對 is_brand = 0 之 keyword 資料")
+        # safe_st_call(st.caption, "針對 is_brand = 0 之 keyword 資料")
         
     def check_category_coverage(self, data, level="further_subcategory"):
         """
