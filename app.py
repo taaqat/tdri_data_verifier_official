@@ -33,12 +33,13 @@ CL, CR = st.columns(2)
 
 # chart_name 預設值自動判斷
 chart_keys = list(charts.keys())
-default_chart_name = chart_keys[0]
 auto_detected = False
 
 # 初始化 session state
 if 'last_uploaded_file' not in st.session_state:
     st.session_state.last_uploaded_file = None
+if 'chart_name' not in st.session_state:
+    st.session_state.chart_name = chart_keys[0]
 
 with CR:
     data = st.file_uploader("上傳欲驗證的報表", type = ["csv", "xlsx"], key="data_file")
@@ -61,19 +62,18 @@ with CR:
         if not best_match:
             best_match = difflib.get_close_matches(filename, chart_keys, n=1, cutoff=0.6)
         if best_match:
-            default_chart_name = best_match[0]
             auto_detected = True
             # 如果是新檔案且成功自動判斷，更新 session state
             if file_changed:
-                st.session_state.chart_name = default_chart_name
+                st.session_state.chart_name = best_match[0]
         
         # 更新記錄的檔案名稱
         st.session_state.last_uploaded_file = data.name
     submit = st.button("開始驗證")
 with CL:
     classification = st.file_uploader("上傳你的分類表", type = ["csv", "xlsx"])
-    # selectbox 用 default_chart_name 當預設值
-    chart_name = st.selectbox("選擇欲驗證的報表種類", chart_keys, index=chart_keys.index(default_chart_name), key="chart_name")
+    # selectbox 使用 session_state 的值，不設定 index 參數
+    chart_name = st.selectbox("選擇欲驗證的報表種類", chart_keys, key="chart_name")
     
     # 只在無法自動判斷時顯示警告
     if data is not None and not auto_detected:
