@@ -60,7 +60,7 @@ charts = {
     "chart_brands_extend_cross": ["step1", "step2", "step4", "step5", "step6", "step7"],
     "chart_brands_extend_image": ["step1", "step2", "step4", "step5", "step6", "step7"],
     "chart_brands_comment_counts":["step1", "step2", "step4", "step5", "step6", "step7"],
-    "chart_brands_comment_score":["step1", "step2", "step4", "step5"],
+    # "chart_brands_comment_score":["step1", "step2", "step4", "step5"],
     "chart_others": ["step1", "step2", "step4", "step5", "step6", "step7"],
     "chart_trends": ["step1", "step2", "step5", "step6"],
     "reference": ["step1", "step2", "step5"],

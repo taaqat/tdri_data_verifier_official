@@ -147,7 +147,7 @@ if submit:
         if chart_name == "chart_brands_comment_counts":
             verifier.check_chart_brands_comment_counts(data)
 
-        #if chart_name == "chart_brands_comment_score":
+        # if chart_name == "chart_brands_comment_score":
         #    verifier.check_chart_brands_comment_score(data)
 
         if chart_name == "chart_others":
