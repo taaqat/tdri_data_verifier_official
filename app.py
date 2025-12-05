@@ -35,10 +35,18 @@ CL, CR = st.columns(2)
 chart_keys = list(charts.keys())
 default_chart_name = chart_keys[0]
 auto_detected = False
+
+# 初始化 session state
+if 'last_uploaded_file' not in st.session_state:
+    st.session_state.last_uploaded_file = None
+
 with CR:
     data = st.file_uploader("上傳欲驗證的報表", type = ["csv", "xlsx"], key="data_file")
     if data is not None:
         filename = data.name.lower()
+        # 檢查是否是新上傳的檔案
+        file_changed = (st.session_state.last_uploaded_file != data.name)
+        
         best_match = []
         # 1. 先比對是否以 key 開頭，若多個則取最長
         start_matches = [k for k in chart_keys if filename.startswith(k)]
@@ -55,6 +63,12 @@ with CR:
         if best_match:
             default_chart_name = best_match[0]
             auto_detected = True
+            # 如果是新檔案且成功自動判斷，更新 session state
+            if file_changed:
+                st.session_state.chart_name = default_chart_name
+        
+        # 更新記錄的檔案名稱
+        st.session_state.last_uploaded_file = data.name
     submit = st.button("開始驗證")
 with CL:
     classification = st.file_uploader("上傳你的分類表", type = ["csv", "xlsx"])
