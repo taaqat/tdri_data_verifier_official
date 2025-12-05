@@ -604,19 +604,25 @@ class Verify():
         
         # 檢查是否有列的 search_volume 為 0
         stream_write("\n🔆 檢查 keyword 表中的 search_volume 欄位...")
-        data["search_volume_zero"] = data['search_volume'].apply(
-            lambda x: pd.isna(x) or str(x).strip() in ['0', '0.0', ''] or (
-                isinstance(x, (int, float)) and x == 0
+        try:
+            data["search_volume_zero"] = data['search_volume'].apply(
+                lambda x: pd.isna(x) or str(x).strip() in ['0', '0.0', ''] or (
+                    isinstance(x, (int, float)) and x == 0
+                )
             )
-        )
-        stream_write(f"🔔 共有 {data['search_volume_zero'].sum()} 列之 search_volume 為 0 或空值！")
+            zero_count = int(data['search_volume_zero'].sum())
+            stream_write(f"🔔 共有 {zero_count} 列之 search_volume 為 0 或空值！")
+        except Exception as e:
+            stream_write(f"⚠️ 檢查 search_volume 時發生錯誤: {str(e)}")
 
         # 檢查產品分類組合
+        stream_write("\n🔆 檢查 is_brand = True 的資料分類...")
         self.classification_check(is_brand_t, "further_subcategory")
-        st.caption("針對 is_brand = 1 之 keyword 資料")
+        safe_st_call(st.caption, "針對 is_brand = 1 之 keyword 資料")
 
+        stream_write("\n🔆 檢查 is_brand = False 的資料分類...")
         self.classification_check(is_brand_f, "further_subcategory")
-        st.caption("針對 is_brand = 0 之 keyword 資料")
+        safe_st_call(st.caption, "針對 is_brand = 0 之 keyword 資料")
         
     def check_category_coverage(self, data, level="further_subcategory"):
         """
