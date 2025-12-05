@@ -6,6 +6,7 @@ st.set_page_config(layout="wide")
 import pandas as pd
 from verify import Verify
 from constants import charts, classification_columns, RULES
+from utils import match_chart_type_from_filename
 
 st.title("設研院資料驗證平台")
 st.markdown("""<style>
@@ -27,7 +28,6 @@ div.stButton > button:hover {
 
 
 # 新增：根據檔名自動選擇報表種類
-import difflib
 
 CL, CR = st.columns(2)
 
@@ -44,28 +44,15 @@ if 'chart_name' not in st.session_state:
 with CR:
     data = st.file_uploader("上傳欲驗證的報表", type = ["csv", "xlsx"], key="data_file")
     if data is not None:
-        filename = data.name.lower()
         # 檢查是否是新上傳的檔案
         file_changed = (st.session_state.last_uploaded_file != data.name)
         
-        best_match = []
-        # 1. 先比對是否以 key 開頭，若多個則取最長
-        start_matches = [k for k in chart_keys if filename.startswith(k)]
-        if start_matches:
-            best_match = [max(start_matches, key=len)]
-        # 2. 再比對是否包含 key，若多個則取最長
-        if not best_match:
-            contain_matches = [k for k in chart_keys if k in filename]
-            if contain_matches:
-                best_match = [max(contain_matches, key=len)]
-        # 3. 最後才用 difflib 模糊比對（設定更高的閾值以避免錯誤匹配）
-        if not best_match:
-            best_match = difflib.get_close_matches(filename, chart_keys, n=1, cutoff=0.6)
-        if best_match:
-            auto_detected = True
-            # 如果是新檔案且成功自動判斷，更新 session state
-            if file_changed:
-                st.session_state.chart_name = best_match[0]
+        # 使用工具函數進行檔名匹配
+        matched_type, auto_detected = match_chart_type_from_filename(data.name, chart_keys)
+        
+        # 如果是新檔案且成功自動判斷，更新 session state
+        if file_changed and auto_detected:
+            st.session_state.chart_name = matched_type
         
         # 更新記錄的檔案名稱
         st.session_state.last_uploaded_file = data.name

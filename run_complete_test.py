@@ -6,6 +6,7 @@ import os
 import sys
 import pandas as pd
 from datetime import datetime
+import unittest
 
 # 將專案根目錄添加到 Python 路徑
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
@@ -20,6 +21,33 @@ def run_test_with_output():
     with open(log_file_path, 'w', encoding='utf-8') as log_file:
         try:
             log_file.write("開始執行測試...\n\n")
+            
+            # ===== 執行單元測試 =====
+            log_file.write("=" * 60 + "\n")
+            log_file.write("執行單元測試: test_filename_matching\n")
+            log_file.write("=" * 60 + "\n\n")
+            
+            # 導入並執行檔名匹配測試
+            from tests.unit.test_filename_matching import TestFilenameMatching
+            
+            # 創建測試套件
+            loader = unittest.TestLoader()
+            suite = loader.loadTestsFromTestCase(TestFilenameMatching)
+            
+            # 執行測試並捕獲結果
+            runner = unittest.TextTestRunner(stream=log_file, verbosity=2)
+            result = runner.run(suite)
+            
+            log_file.write(f"\n測試結果統計:\n")
+            log_file.write(f"  執行測試數: {result.testsRun}\n")
+            log_file.write(f"  成功: {result.testsRun - len(result.failures) - len(result.errors)}\n")
+            log_file.write(f"  失敗: {len(result.failures)}\n")
+            log_file.write(f"  錯誤: {len(result.errors)}\n\n")
+            
+            # ===== 執行整合測試 =====
+            log_file.write("=" * 60 + "\n")
+            log_file.write("執行整合測試: Verify 類別功能測試\n")
+            log_file.write("=" * 60 + "\n\n")
             
             # 測試資料檔案路徑
             test_data_dir = os.path.join(os.path.dirname(__file__), 'tests', 'test_data')
