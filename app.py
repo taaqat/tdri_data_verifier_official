@@ -73,14 +73,28 @@ with instruction.container():
 
 if submit:
     instruction.empty()
+    
+    # 檢查是否上傳了分類表
+    if classification is None:
+        st.error("❌ 請上傳分類表！")
+        st.stop()
+    
+    # 檢查是否上傳了報表資料
+    if data is None:
+        st.error("❌ 請上傳欲驗證的報表！")
+        st.stop()
+    
+    # 讀取分類表
     try:
         classification = pd.read_csv(classification)
     except:
         try:
             classification = pd.read_excel(classification)
         except:
-            raise TypeError("input only 'csv' or 'xlsx' file!")
+            st.error("❌ 分類表格式錯誤，請上傳 csv 或 xlsx 檔案！")
+            st.stop()
         
+    # 讀取報表資料
     with st.spinner("讀取報表資料..."):  
         try:
             data = pd.read_csv(data)
@@ -88,7 +102,8 @@ if submit:
             try:
                 data = pd.read_excel(data)
             except:
-                raise TypeError("input only 'csv' or 'xlsx' file!")
+                st.error("❌ 報表格式錯誤，請上傳 csv 或 xlsx 檔案！")
+                st.stop()
     
     classification['classification_further_subcategory'] = classification.apply(lambda row: "_".join([row[col] for col in classification_columns]), axis = 1)
     classification['classification_subcategory'] = classification.apply(lambda row: "_".join([row[col] for col in classification_columns if col != "further_subcategory"]), axis = 1)
