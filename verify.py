@@ -102,7 +102,7 @@ class Verify():
         st.divider()
         assert chart_name in ["products", "products_extend"], "duplicates analysis is only available for 'products' and 'products_extend' tables"
 
-        stream_write("\n🔆 正在檢查重複列...")
+        stream_write("\n🔆 檢查重複列...")
         if chart_name == "products":
             data["dup"] = data.duplicated(subset = ["source_product_id"])
             dup_ids = data[data["dup"]]["id"].tolist()
@@ -128,7 +128,7 @@ class Verify():
 
     def classification_check(self, data, statstype = "further_subcategory"):
         st.divider()
-        stream_write("\n🔆 正在檢查分類組合...")
+        stream_write("\n🔆 檢查分類組合...")
         assert statstype in ["subcategory", "further_subcategory", "mixed"] 
         incorrect_classified_ids = []
 
@@ -627,7 +627,7 @@ class Verify():
             缺失的分類列表
         """
         safe_st_call(st.divider)
-        stream_write("\n🔆 正在檢查分類覆蓋率...")
+        stream_write("\n🔆 檢查分類覆蓋率...")
         
         # 確定檢查的分類層級
         if level == "further_subcategory":
@@ -636,6 +636,13 @@ class Verify():
         else:
             categories = self.classification['classification_subcategory'].tolist()
             class_cols = ["category", "subcategory"]
+        
+        # 檢查必要的欄位是否存在
+        missing_cols = [col for col in class_cols if col not in data.columns]
+        if missing_cols:
+            stream_write(f"⚠️ 資料缺少必要的分類欄位: {missing_cols}")
+            stream_write("無法進行分類覆蓋率檢查")
+            return []
         
         # 計算每個分類的數量
         result = []

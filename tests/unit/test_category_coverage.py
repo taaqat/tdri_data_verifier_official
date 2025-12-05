@@ -100,6 +100,27 @@ class TestCategoryCoverage(unittest.TestCase):
         self.assertIsNotNone(styled_df, "應該返回一個非空對象")
         # 檢查 Styler 對象是否有正確的屬性
         self.assertTrue(hasattr(styled_df, 'data'), "Styler 對象應該有 data 屬性")
+    
+    def test_check_category_coverage_missing_columns(self):
+        """測試資料缺少必要的分類欄位時的處理"""
+        # 創建一個沒有分類欄位的資料
+        data_without_columns = pd.DataFrame({
+            'id': [1, 2, 3],
+            'product_name': ['產品A', '產品B', '產品C'],
+            'price': [100, 200, 300]
+        })
+        
+        # 調用待測試的函數
+        missing_categories = self.verifier.check_category_coverage(data_without_columns)
+        
+        # 驗證結果：應該返回空列表（因為無法進行檢查）
+        self.assertEqual(len(missing_categories), 0, "缺少欄位時應該返回空列表")
+        
+        # 驗證不應該調用 dataframe（因為沒有結果可以顯示）
+        self.assertEqual(self.mock_st.mock_container.dataframe_calls, 0, "缺少欄位時不應該調用 dataframe")
+        
+        # 驗證不應該顯示下載按鈕
+        self.assertEqual(self.mock_st.mock_container.download_button_calls, 0, "缺少欄位時不應該顯示下載按鈕")
 
 
 if __name__ == '__main__':
