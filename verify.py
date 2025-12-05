@@ -609,6 +609,14 @@ class Verify():
                 isinstance(x, (int, float)) and x == 0
             )
         )
+        stream_write(f"🔔 共有 {data['search_volume_zero'].sum()} 列之 search_volume 為 0 或空值！")
+
+        # 檢查產品分類組合
+        self.classification_check(is_brand_t, "further_subcategory")
+        st.caption("針對 is_brand = 1 之 keyword 資料")
+
+        self.classification_check(is_brand_f, "further_subcategory")
+        st.caption("針對 is_brand = 0 之 keyword 資料")
         
     def check_category_coverage(self, data, level="further_subcategory"):
         """
@@ -775,20 +783,6 @@ class Verify():
         else:
             # 如果沒有標準分類表，返回預設值
             return {'大分類': 1, '中分類': 1, '小分類': 1}
-    
-        stream_write(f"🔔 共有 {data['search_volume_zero'].sum()} 列之 search_volume 為 0 或空值！")
-
-
-        # 檢查產品分類組合
-        self.classification_check(is_brand_t, "further_subcategory")
-        st.caption("針對 is_brand = 1 之 keyword 資料")
-
-        
-        self.classification_check(is_brand_f, "further_subcategory")
-        st.caption("針對 is_brand = 0 之 keyword 資料")
-        
-
-        
 
     def check_empty_cells(self):
         """
