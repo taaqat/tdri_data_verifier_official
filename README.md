@@ -81,12 +81,7 @@ streamlit run app.py
 - `tests/integration/`: 整合測試，測試模組之間的互動
 - `tests/functional/`: 功能測試，測試完整的資料驗證流程
 
-執行所有測試：執行完整測試並將結果保存到時間戳命名的檔案中：
-```bash
-python run_complete_test.py
-```
-
-或直接使用 pytest：
+執行所有測試：
 ```bash
 pytest -v
 ```
